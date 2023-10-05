@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graphics Packager</title>
+    <link rel="stylesheet" href="app.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div id="status-message" class="hidden"></div>
+
+    <div class="centered">
+      <h1 class="title">
+        Graphics Packager
+      </h1>
+
+      <ul id="set-def-root"></ul>
+      <form></form>
+
+      <button id="metadata-button">Create metadata</button>
+      <textarea id="json-field" rows="20" cols="80"></textarea>
+      <a id="download-link" class="hidden">Download metadata</a>
+    </div>
+
+    <div id="version-info"></div>
+
+    <script type="module" src="main.ts"></script>
+  </body>
+</html>
