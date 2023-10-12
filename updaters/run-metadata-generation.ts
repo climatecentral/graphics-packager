@@ -2,7 +2,7 @@ import { generateMetadata } from '../tasks/generate-metadata';
 import handleError from 'handle-error-web';
 import { renderMetadata } from '../renderers/render-metadata';
 import { ObjectFromDOM } from 'object-form';
-import { SetDef } from './types';
+import { SetDef } from '../types';
 
 var objectFromDOM = ObjectFromDOM({});
 var formEl = document.querySelector('form');
