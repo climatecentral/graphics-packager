@@ -1,11 +1,21 @@
 import { select } from 'd3-selection';
 import { renderForm } from './render-form';
 
-// TODO: Names. These need to be object entries, not array entries.
+// TODO: These need to be object entries, not array entries.
 var fieldPacks = [
+  { id: 'name', name: 'Graphic set name', defaultValue: 'Default set name' },
   { id: 'graphicType', name: 'graphicType', defaultValue: 'lineChart' },
   { id: 'variable', name: 'variable', defaultValue: 'tavg' },
-  { id: 'locations', name: 'locations', defaultValue: '{}' },
+  { id: 'locationType', name: 'locationType', defaultValue: 'market' },
+  { id: 'backgroundType', name: 'backgroundType', defaultValue: 'Solid' },
+  { id: 'imageURL', name: 'imageURL', defaultValue: '' },
+  {
+    id: 'backgroundStartColor',
+    name: 'backgroundStartColor',
+    defaultValue: '',
+  },
+  { id: 'backgroundEndColor', name: 'backgroundEndColor', defaultValue: '' },
+  { id: 'downloadable', name: 'downloadable', defaultValue: '' },
 ];
 
 export function renderSets({ setDefs, onAddSet }) {
@@ -17,6 +27,10 @@ export function renderSets({ setDefs, onAddSet }) {
   select('#add-set-button').on('click', onAddSet);
 }
 
-function setUpForm() {
-  renderForm({ fieldPacks, rootSelector: this });
+function setUpForm(setDef, i) {
+  renderForm({
+    fieldPacks,
+    rootSelector: this,
+    dataOf: 'setDefs/' + i + '/',
+  });
 }

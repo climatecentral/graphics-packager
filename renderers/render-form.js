@@ -2,7 +2,7 @@ import { select } from 'd3-selection';
 import accessor from 'accessor';
 
 // rootSelector can be a selection itself.
-export function renderForm({ fieldPacks, rootSelector }) {
+export function renderForm({ fieldPacks, rootSelector, dataOf }) {
   var fieldSel = select(rootSelector)
     .selectAll('.field')
     .data(fieldPacks, accessor('id'));
@@ -17,7 +17,7 @@ export function renderForm({ fieldPacks, rootSelector }) {
   existingFields
     .select('input')
     .attr('id', getId)
-    .attr('data-of', accessor('id'))
+    .attr('data-of', (d) => (dataOf ? dataOf + d.id : d.id))
     .attr('value', accessor('defaultValue'));
 }
 

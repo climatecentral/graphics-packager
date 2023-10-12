@@ -4,13 +4,12 @@ import { version } from './package.json';
 import { renderMetadataForm } from './renderers/render-metadata-form';
 import { renderSets } from './renderers/render-sets';
 import { runMetadataGeneration } from './updaters/run-metadata-generation';
-import { SetDef } from './types';
+import { SetDef, LocationTypes } from './types';
 
 var setDefs: SetDef[] = [];
 
 var fieldPacks = [
   { id: 'season', name: 'Season', defaultValue: 'fall' },
-  { id: 'variable', name: 'Variable', defaultValue: '' },
   { id: 'endYear', name: 'End year', defaultValue: '2022' },
   { id: 'ticksCount', name: 'Ticks count', defaultValue: '3' },
 ];
@@ -23,7 +22,14 @@ var fieldPacks = [
 })();
 
 function onAddSet() {
-  setDefs.push({ graphicType: 'lineChart', variable: 'tavg', locations: {} });
+  setDefs.push({
+    name: 'New set',
+    graphicType: 'lineChart',
+    variable: 'tavg',
+    backgroundType: 'Solid',
+    locationType: LocationTypes.market,
+    downloadable: true,
+  });
   renderSets({ setDefs, onAddSet });
 }
 

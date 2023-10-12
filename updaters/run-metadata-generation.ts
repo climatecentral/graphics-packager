@@ -2,6 +2,7 @@ import { generateMetadata } from '../tasks/generate-metadata';
 import handleError from 'handle-error-web';
 import { renderMetadata } from '../renderers/render-metadata';
 import { ObjectFromDOM } from 'object-form';
+import { SetDef } from './types';
 
 var objectFromDOM = ObjectFromDOM({});
 var formEl = document.querySelector('form');
@@ -9,12 +10,13 @@ var setDefRootEl = document.querySelector('#set-def-root');
 
 export async function runMetadataGeneration() {
   try {
-    var metadataOpts = objectFromDOM(formEl);
-    var setDefs = objectFromDOM(setDefRootEl);
+    var overallOpts = objectFromDOM(formEl);
+    var setDefObject = objectFromDOM(setDefRootEl);
+    // TODO: Fix in objectForm
+    var setDefs = Object.values(setDefObject.setDefs) as SetDef[];
     console.log('setDefs', setDefs);
 
-    // TODO: set stuff
-    var metadata = await generateMetadata(metadataOpts);
+    var metadata = await generateMetadata({ overallOpts, setDefs });
     renderMetadata({ metadata });
   } catch (error) {
     handleError(error);
