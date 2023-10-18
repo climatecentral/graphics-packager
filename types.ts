@@ -21,10 +21,10 @@ export enum TitleEnum {
 }
 
 export interface GraphicURLOpts extends Omit<SetDef, 'locations'> {
-  // [key: string]: string | boolean | undefined;
-  aggPeriod: string;
+  // [key: string]: string | boolean | undefined
+  occasionSlug: string;
   lang: string;
-  titleEnum: TitleEnum;
+  noTitle: boolean;
   marketSlug: string;
 }
 

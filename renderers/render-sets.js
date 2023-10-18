@@ -7,14 +7,15 @@ var fieldPacks = [
   { id: 'graphicType', name: 'graphicType', defaultValue: 'lineChart' },
   { id: 'variable', name: 'variable', defaultValue: 'tavg' },
   { id: 'locationType', name: 'locationType', defaultValue: 'market' },
-  { id: 'backgroundType', name: 'backgroundType', defaultValue: 'Solid' },
-  { id: 'imageURL', name: 'imageURL', defaultValue: '' },
-  {
-    id: 'backgroundStartColor',
-    name: 'backgroundStartColor',
-    defaultValue: '',
-  },
-  { id: 'backgroundEndColor', name: 'backgroundEndColor', defaultValue: '' },
+  // TODO: Bring these back after graphics supports them in the URL.
+  // { id: 'backgroundType', name: 'backgroundType', defaultValue: 'Solid' },
+  // { id: 'imageURL', name: 'imageURL', defaultValue: '' },
+  // {
+  //   id: 'backgroundStartColor',
+  //   name: 'backgroundStartColor',
+  //   defaultValue: '',
+  // },
+  // { id: 'backgroundEndColor', name: 'backgroundEndColor', defaultValue: '' },
   { id: 'downloadable', name: 'downloadable', defaultValue: '' },
 ];
 

@@ -1,8 +1,10 @@
 import { OverallOpts, SetDef, GraphicURLOpts, TitleEnum } from '../types';
 import { multiplyArrayFactors } from './multiply-array-factors';
+import omit from 'lodash.omit';
 
 const IMG_URL_BASE = 'https://images.climatecentral.org/web-image';
 const GRAPHICS_URL_BASE = 'https://graphics.climatecentral.org';
+// const GRAPHICS_URL_BASE = 'http://localhost:8000';
 const MARKETS_API =
   'https://9pglbdveii.execute-api.us-east-1.amazonaws.com/stage/web-image?url=https%3A%2F%2Fapi.climatecentral.org%2Fv1%2Fcmmarket%2F&getRaw=true&contentType=application/json';
 
@@ -47,28 +49,26 @@ export async function generateMetadata({
     lang: string
   ) {
     // TODO: Handle setDef.locationType === 'conus'.
-    let graphicURLOpts: GraphicURLOpts = Object.assign(
-      {
-        season: overallOpts.season,
-        aggPeriod: overallOpts.season,
-        endYear: overallOpts.endYear,
-        ticksCount: overallOpts.ticksCount,
-        lang,
-        titleEnum,
-        marketSlug,
-      },
-      setDef
-    );
-
-    // TODO: Set bg params when graphics supports it.
-    // if (hasBG) {
-    //   graphicURLOpts.backgroundType = setDef.backgroundType;
-    //   if (setDef.backgroundType === 'imageURL') {
-    //     graphicURLOpts.imageURL = setDef.imageURL;
-    //   }
-    // }
+    let graphicURLOpts: GraphicURLOpts = Object.assign({
+      occasionSlug: overallOpts.season,
+      endYear: overallOpts.endYear,
+      ticksCount: overallOpts.ticksCount,
+      lang,
+      noTitle: titleEnum === 'notitle',
+      marketSlug,
+    });
     const queryString = new URLSearchParams(
-      graphicURLOpts as unknown as Record<string, string>
+      // For now, eliminate the stuff graphics does
+      // not read in the URL.
+      omit(
+        graphicURLOpts,
+        'name',
+        'backgroundType',
+        'backgroundStartColor',
+        'backgroundEndColor',
+        'locationType',
+        'downloadable'
+      ) as unknown as Record<string, string>
     ).toString();
     const graphicURL = `${GRAPHICS_URL_BASE}/?${queryString}`;
 

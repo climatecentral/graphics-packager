@@ -21,6 +21,7 @@
     "d3-selection": "^3.0.0",
     "handle-error-web": "^1.0.1",
     "lodash.memoize": "^4.1.2",
+    "lodash.omit": "^4.5.0",
     "object-form": "^0.10.1"
   }
 }

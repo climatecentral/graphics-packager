@@ -9,7 +9,7 @@ import { SetDef, LocationTypes } from './types';
 var setDefs: SetDef[] = [];
 
 var fieldPacks = [
-  { id: 'season', name: 'Season', defaultValue: 'fall' },
+  { id: 'season', name: 'Season/occasionSlug', defaultValue: 'fall' },
   { id: 'endYear', name: 'End year', defaultValue: '2022' },
   { id: 'ticksCount', name: 'Ticks count', defaultValue: '3' },
 ];
