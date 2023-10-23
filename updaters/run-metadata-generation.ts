@@ -8,7 +8,11 @@ var objectFromDOM = ObjectFromDOM({});
 var formEl = document.querySelector('form');
 var setDefRootEl = document.querySelector('#set-def-root');
 
-export async function runMetadataGeneration() {
+export async function runMetadataGeneration({
+  onMetadata,
+}: {
+  onMetadata: (generatedMetadata: unknown) => null;
+}) {
   try {
     var overallOpts = objectFromDOM(formEl);
     var setDefObject = objectFromDOM(setDefRootEl);
@@ -17,6 +21,7 @@ export async function runMetadataGeneration() {
     console.log('setDefs', setDefs);
 
     var metadata = await generateMetadata({ overallOpts, setDefs });
+    onMetadata(metadata);
     renderMetadata({ metadata });
   } catch (error) {
     handleError(error);

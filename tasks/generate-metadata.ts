@@ -75,7 +75,7 @@ export async function generateMetadata({
     // const variable = variablesForGraphicSetNames[graphicSetName];
     return {
       graphicSet: setDef.name,
-      url: `${IMG_URL_BASE}/?url=${encodeURIComponent(graphicURL)}`,
+      url: `${IMG_URL_BASE}/?delay=3000&url=${encodeURIComponent(graphicURL)}`,
       graphicURL,
       title: titleEnum,
       lang,

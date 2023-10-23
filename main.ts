@@ -4,6 +4,7 @@ import { version } from './package.json';
 import { renderMetadataForm } from './renderers/render-metadata-form';
 import { renderSets } from './renderers/render-sets';
 import { runMetadataGeneration } from './updaters/run-metadata-generation';
+import { CacheWarmingUpdater } from './updaters/cache-warming-updater';
 import { SetDef, LocationTypes } from './types';
 
 var setDefs: SetDef[] = [];
@@ -17,8 +18,13 @@ var fieldPacks = [
 (async function go() {
   window.addEventListener('error', reportTopLevelError);
   renderVersion();
-  renderMetadataForm({ fieldPacks, runMetadataGeneration });
+  renderMetadataForm({ fieldPacks, runMetadataGeneration, onMetadata });
   renderSets({ setDefs, onAddSet });
+  var warmingUpdater = CacheWarmingUpdater();
+
+  function onMetadata(metadata: unknown) {
+    warmingUpdater.setMetadata(metadata);
+  }
 })();
 
 function onAddSet() {

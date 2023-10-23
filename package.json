@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "accessor": "^3.0.0",
+    "d3-queue": "^3.0.7",
     "d3-selection": "^3.0.0",
     "handle-error-web": "^1.0.1",
     "lodash.memoize": "^4.1.2",
