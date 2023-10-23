@@ -32,7 +32,6 @@ function onAddSet() {
     name: 'New set',
     graphicType: 'lineChart',
     variable: 'tavg',
-    backgroundType: 'Solid',
     locationType: LocationTypes.market,
     downloadable: true,
   });

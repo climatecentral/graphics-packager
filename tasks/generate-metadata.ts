@@ -1,4 +1,10 @@
-import { OverallOpts, SetDef, GraphicURLOpts, TitleEnum } from '../types';
+import {
+  OverallOpts,
+  SetDef,
+  GraphicURLOpts,
+  TitleEnum,
+  BackgroundCombo,
+} from '../types';
 import { multiplyArrayFactors } from './multiply-array-factors';
 import omit from 'lodash.omit';
 
@@ -29,15 +35,18 @@ export async function generateMetadata({
     Object.keys(marketNamesForSlugs),
     // titleEnum
     ['title', 'notitle'],
-    // hasBG
-    [true, false],
+    // backgroundCombo
+    [
+      { name: 'imageBG', backgroundType: 'Image URL' },
+      { name: 'noBG', backgroundType: 'Solid', backgroundStartColor: 'none' },
+    ],
     // lang
     ['en', 'es'],
   ];
   var combinations = multiplyArrayFactors(factors);
 
   return combinations.map(
-    (paramArray: [SetDef, string, TitleEnum, boolean, string]) =>
+    (paramArray: [SetDef, string, TitleEnum, BackgroundCombo, string]) =>
       getMetadatum.apply(getMetadatum, paramArray)
   );
 
@@ -45,7 +54,7 @@ export async function generateMetadata({
     setDef: SetDef,
     marketSlug: string,
     titleEnum: TitleEnum,
-    hasBG: boolean,
+    backgroundCombo: BackgroundCombo,
     lang: string
   ) {
     // TODO: Handle setDef.locationType === 'conus'.
@@ -57,6 +66,8 @@ export async function generateMetadata({
       lang,
       noTitle: titleEnum === 'notitle',
       marketSlug,
+      backgroundType: backgroundCombo.backgroundType,
+      backgroundStartColor: backgroundCombo.backgroundStartColor,
     });
     const queryString = new URLSearchParams(
       // For now, eliminate the stuff graphics does
@@ -64,8 +75,6 @@ export async function generateMetadata({
       omit(
         graphicURLOpts,
         'name',
-        'backgroundType',
-        'backgroundStartColor',
         'backgroundEndColor',
         'locationType',
         'downloadable'
@@ -80,7 +89,7 @@ export async function generateMetadata({
       graphicURL,
       title: titleEnum,
       lang,
-      extension: hasBG ? 'jpg' : 'png',
+      extension: backgroundCombo.backgroundType ? 'jpg' : 'png',
       location: {
         key: marketSlug,
         name: marketNamesForSlugs[marketSlug],

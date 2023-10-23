@@ -3,11 +3,18 @@ export enum LocationTypes {
   conus = 'conus',
 }
 
+export type BackgroundType = 'Linear Gradient' | 'Image URL' | 'Solid' | 'None';
+export type BackgroundCombo = {
+  name: string;
+  backgroundType: BackgroundType;
+  backgroundStartColor?: string;
+};
+
 export interface SetDef {
   name: string;
   graphicType: 'lineChart' | 'mapGraphic';
   variable: string;
-  backgroundType: 'Linear Gradient' | 'Image URL' | 'Solid';
+  backgroundType?: BackgroundType;
   imageURL?: string;
   backgroundStartColor?: string;
   backgroundEndColor?: string;
