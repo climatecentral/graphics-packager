@@ -50,6 +50,7 @@ export async function generateMetadata({
   ) {
     // TODO: Handle setDef.locationType === 'conus'.
     let graphicURLOpts: GraphicURLOpts = Object.assign({
+      variable: setDef.variable,
       occasionSlug: overallOpts.season,
       endYear: overallOpts.endYear,
       ticksCount: overallOpts.ticksCount,
