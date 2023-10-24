@@ -24,10 +24,6 @@ export async function generateMetadata({
   setDefs: SetDef[];
 }) {
   var { season } = overallOpts;
-  var downloadableGraphicSets = [
-    'Fall Days Above Normal',
-    'Average Fall Temperature',
-  ];
   marketNamesForSlugs = await getMarketLocations();
 
   var factors = [
@@ -96,7 +92,7 @@ export async function generateMetadata({
         latitude: null,
         longitude: null,
       },
-      downloadable: downloadableGraphicSets.includes(setDef.name),
+      downloadable: !!setDef.downloadable,
       season,
       variable: setDef.variable,
       setType: setDef.name,
