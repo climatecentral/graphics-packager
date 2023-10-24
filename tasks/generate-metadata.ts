@@ -92,7 +92,7 @@ export async function generateMetadata({
         latitude: null,
         longitude: null,
       },
-      downloadable: !!setDef.downloadable,
+      downloadable: setDef.downloadable,
       season,
       variable: setDef.variable,
       setType: setDef.name,

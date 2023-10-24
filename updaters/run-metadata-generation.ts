@@ -18,6 +18,12 @@ export async function runMetadataGeneration({
     var setDefObject = objectFromDOM(setDefRootEl);
     // TODO: Fix in objectForm
     var setDefs = Object.values(setDefObject.setDefs) as SetDef[];
+    setDefs.forEach(
+      (setDef) =>
+        (setDef.downloadable = JSON.parse(
+          setDef.downloadable as unknown as string
+        ))
+    );
     console.log('setDefs', setDefs);
 
     var metadata = await generateMetadata({ overallOpts, setDefs });
