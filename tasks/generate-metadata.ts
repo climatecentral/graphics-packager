@@ -89,7 +89,7 @@ export async function generateMetadata({
       graphicURL,
       title: titleEnum,
       lang,
-      extension: backgroundCombo.backgroundType ? 'jpg' : 'png',
+      extension: backgroundCombo.backgroundType === 'Image URL' ? 'jpg' : 'png',
       location: {
         key: marketSlug,
         name: marketNamesForSlugs[marketSlug],
