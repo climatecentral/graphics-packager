@@ -23,7 +23,7 @@ export async function generateMetadata({
   overallOpts: OverallOpts;
   setDefs: SetDef[];
 }) {
-  var { season } = overallOpts;
+  var { season, occasionSlug } = overallOpts;
   marketNamesForSlugs = await getMarketLocations();
 
   var factors = [
@@ -56,7 +56,8 @@ export async function generateMetadata({
     // TODO: Handle setDef.locationType === 'conus'.
     let graphicURLOpts: GraphicURLOpts = Object.assign({
       variable: setDef.variable,
-      occasionSlug: overallOpts.season,
+      occasionSlug: overallOpts.occasionSlug,
+      season: overallOpts.season,
       endYear: overallOpts.endYear,
       ticksCount: overallOpts.ticksCount,
       lang,

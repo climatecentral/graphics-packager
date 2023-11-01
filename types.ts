@@ -36,6 +36,7 @@ export interface GraphicURLOpts extends Omit<SetDef, 'locations'> {
 }
 
 export interface OverallOpts {
+  occasionSlug: string;
   season: string;
   endYear: number;
   ticksCount?: number;

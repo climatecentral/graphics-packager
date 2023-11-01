@@ -5,7 +5,7 @@ import { renderForm } from './render-form';
 var fieldPacks = [
   { id: 'name', name: 'Graphic set name', defaultValue: 'Default set name' },
   { id: 'graphicType', name: 'graphicType', defaultValue: 'lineChart' },
-  { id: 'variable', name: 'variable', defaultValue: 'tavg' },
+  { id: 'variable', name: 'variable', defaultValue: 'mean_tavg' },
   { id: 'locationType', name: 'locationType', defaultValue: 'market' },
   // TODO: Bring these back after graphics supports them in the URL.
   // { id: 'backgroundType', name: 'backgroundType', defaultValue: 'Solid' },
@@ -16,7 +16,7 @@ var fieldPacks = [
   //   defaultValue: '',
   // },
   // { id: 'backgroundEndColor', name: 'backgroundEndColor', defaultValue: '' },
-  { id: 'downloadable', name: 'downloadable', defaultValue: '' },
+  { id: 'downloadable', name: 'downloadable', defaultValue: 'true' },
 ];
 
 export function renderSets({ setDefs, onAddSet }) {
