@@ -23,7 +23,7 @@ export async function generateMetadata({
   overallOpts: OverallOpts;
   setDefs: SetDef[];
 }) {
-  var { season, occasionSlug } = overallOpts;
+  var { season } = overallOpts;
   marketNamesForSlugs = await getMarketLocations();
 
   var factors = [
@@ -53,8 +53,8 @@ export async function generateMetadata({
     backgroundCombo: BackgroundCombo,
     lang: string
   ) {
-    // TODO: Handle setDef.locationType === 'conus'.
     let graphicURLOpts: GraphicURLOpts = Object.assign({
+      graphicType: setDef.graphicType,
       variable: setDef.variable,
       occasionSlug: overallOpts.occasionSlug,
       season: overallOpts.season,
@@ -66,6 +66,11 @@ export async function generateMetadata({
       backgroundType: backgroundCombo.backgroundType,
       backgroundStartColor: backgroundCombo.backgroundStartColor,
     });
+
+    if (setDef.locationType === 'conus') {
+      delete graphicURLOpts.marketSlug;
+    }
+
     const queryString = new URLSearchParams(
       // For now, eliminate the stuff graphics does
       // not read in the URL.

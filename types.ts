@@ -32,7 +32,7 @@ export interface GraphicURLOpts extends Omit<SetDef, 'locations'> {
   occasionSlug: string;
   lang: string;
   noTitle: boolean;
-  marketSlug: string;
+  marketSlug?: string;
 }
 
 export interface OverallOpts {
