@@ -7,6 +7,7 @@ var fieldPacks = [
   { id: 'graphicType', name: 'graphicType', defaultValue: 'lineChart' },
   { id: 'variable', name: 'variable', defaultValue: 'mean_tavg' },
   { id: 'locationType', name: 'locationType', defaultValue: 'market' },
+  { id: 'ticksCount', name: 'Ticks count', defaultValue: '3' },
   // TODO: Bring these back after graphics supports them in the URL.
   // { id: 'backgroundType', name: 'backgroundType', defaultValue: 'Solid' },
   // { id: 'imageURL', name: 'imageURL', defaultValue: '' },

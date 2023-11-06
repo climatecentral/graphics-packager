@@ -13,7 +13,6 @@ var fieldPacks = [
   { id: 'season', name: 'Season', defaultValue: 'winter' },
   { id: 'occasionSlug', name: 'occasionSlug', defaultValue: '' },
   { id: 'endYear', name: 'End year', defaultValue: '2023' },
-  { id: 'ticksCount', name: 'Ticks count', defaultValue: '3' },
 ];
 
 (async function go() {

@@ -59,7 +59,7 @@ export async function generateMetadata({
       occasionSlug: overallOpts.occasionSlug,
       season: overallOpts.season,
       endYear: overallOpts.endYear,
-      ticksCount: overallOpts.ticksCount,
+      ticksCount: setDef.ticksCount,
       lang,
       noTitle: titleEnum === 'notitle',
       marketSlug,

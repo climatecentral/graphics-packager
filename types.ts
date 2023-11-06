@@ -20,6 +20,7 @@ export interface SetDef {
   backgroundEndColor?: string;
   locationType: LocationTypes;
   downloadable: boolean;
+  ticksCount?: number;
 }
 
 export enum TitleEnum {
@@ -39,5 +40,4 @@ export interface OverallOpts {
   occasionSlug: string;
   season: string;
   endYear: number;
-  ticksCount?: number;
 }
