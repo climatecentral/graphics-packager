@@ -34,10 +34,16 @@ export interface GraphicURLOpts extends Omit<SetDef, 'locations'> {
   lang: string;
   noTitle: boolean;
   marketSlug?: string;
+  season?: string;
 }
 
 export interface OverallOpts {
   occasionSlug: string;
   season: string;
   endYear: number;
+}
+
+export interface Station {
+  name: string;
+  station: string;
 }

@@ -4,6 +4,7 @@ import {
   GraphicURLOpts,
   TitleEnum,
   BackgroundCombo,
+  Station,
 } from '../types';
 import { multiplyArrayFactors } from './multiply-array-factors';
 import omit from 'lodash.omit';
@@ -14,7 +15,7 @@ const GRAPHICS_URL_BASE = 'https://graphics.climatecentral.org';
 const MARKETS_API =
   'https://9pglbdveii.execute-api.us-east-1.amazonaws.com/stage/web-image?url=https%3A%2F%2Fapi.climatecentral.org%2Fv1%2Fcmmarket%2F&getRaw=true&contentType=application/json';
 
-var marketNamesForSlugs: Record<string, string>;
+let marketData: Record<string, Station>;
 
 export async function generateMetadata({
   overallOpts,
@@ -23,12 +24,11 @@ export async function generateMetadata({
   overallOpts: OverallOpts;
   setDefs: SetDef[];
 }) {
-  var { season } = overallOpts;
-  marketNamesForSlugs = await getMarketLocations();
+  marketData = await getMarketLocations();
 
   var factors = [
     setDefs,
-    Object.keys(marketNamesForSlugs),
+    Object.keys(marketData),
     // titleEnum
     ['title', 'notitle'],
     // backgroundCombo
@@ -53,10 +53,10 @@ export async function generateMetadata({
     backgroundCombo: BackgroundCombo,
     lang: string
   ) {
+
     let graphicURLOpts: GraphicURLOpts = Object.assign({
       graphicType: setDef.graphicType,
       variable: setDef.variable,
-      occasionSlug: overallOpts.occasionSlug,
       season: overallOpts.season,
       endYear: overallOpts.endYear,
       ticksCount: setDef.ticksCount,
@@ -66,6 +66,13 @@ export async function generateMetadata({
       backgroundType: backgroundCombo.backgroundType,
       backgroundStartColor: backgroundCombo.backgroundStartColor,
     });
+
+    // The graphics lib determines season from occasionSlug based on its config;
+    // therefore we pass either season (default) or only occasionSlug as a URL param.
+    if (overallOpts.occasionSlug) {
+      graphicURLOpts.occasionSlug = overallOpts.occasionSlug;
+      delete graphicURLOpts.season;
+    }
 
     if (setDef.locationType === 'conus') {
       delete graphicURLOpts.marketSlug;
@@ -94,29 +101,29 @@ export async function generateMetadata({
       extension: backgroundCombo.backgroundType === 'Image URL' ? 'jpg' : 'png',
       location: {
         key: marketSlug,
-        name: marketNamesForSlugs[marketSlug],
+        name: marketData[marketSlug].name,
         latitude: null,
         longitude: null,
       },
       downloadable: setDef.downloadable,
-      season,
+      season: overallOpts.season,
       variable: setDef.variable,
       setType: setDef.name,
-      // dataURL: `https://rtc-prod.climatecentral.org/api/v1/graphic-data/trend/?agg_time=${season}&station_id=${marketSlug}&trend_year_range=1970-${endYear}&variable=${variable}&format=csv`,
+      dataURL: `https://rtc-prod.climatecentral.org/api/v1/graphic-data/trend/?agg_time=${overallOpts.season}&station_id=${marketData[marketSlug].station}&trend_year_range=1970-${overallOpts.endYear}&variable=${setDef.variable}&format=csv`,
     };
   }
 }
 
 async function getMarketLocations() {
-  if (marketNamesForSlugs) {
-    return marketNamesForSlugs;
+  if (marketData) {
+    return marketData;
   }
 
   const resp = await fetch(MARKETS_API);
   const data = await resp.json();
-  marketNamesForSlugs = {};
+  marketData = {};
   for (const res of data.results) {
-    marketNamesForSlugs[res.cm_slug as string] = res.name;
+    marketData[res.cm_slug as string] = { name: res.name, station: res.master_station };
   }
-  return marketNamesForSlugs;
+  return marketData;
 }
