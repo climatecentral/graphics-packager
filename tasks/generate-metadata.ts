@@ -11,8 +11,7 @@ import omit from 'lodash.omit';
 const IMG_URL_BASE = 'https://images.climatecentral.org/web-image';
 const GRAPHICS_URL_BASE = 'https://graphics.climatecentral.org';
 // const GRAPHICS_URL_BASE = 'http://localhost:8000';
-const MARKETS_API =
-  'https://9pglbdveii.execute-api.us-east-1.amazonaws.com/stage/web-image?url=https%3A%2F%2Fapi.climatecentral.org%2Fv1%2Fcmmarket%2F&getRaw=true&contentType=application/json';
+const MARKETS_API = 'https://api.climatecentral.org/v1/cmmarket';
 
 var marketNamesForSlugs: Record<string, string>;
 
