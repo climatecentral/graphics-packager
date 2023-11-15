@@ -8,10 +8,13 @@ import {
 } from '../types';
 import { multiplyArrayFactors } from './multiply-array-factors';
 import omit from 'lodash.omit';
+import { select } from 'd3-selection';
 
-const IMG_URL_BASE = 'https://images.climatecentral.org/web-image';
+// const IMG_URL_BASE = 'https://images.climatecentral.org/web-image';
+const IMG_URL_BASE = 'https://api.climatecentral.org/v1/web-image';
 const GRAPHICS_URL_BASE = 'https://graphics.climatecentral.org';
 // const GRAPHICS_URL_BASE = 'http://localhost:8000';
+const DATA_URL_BASE = 'https://rtc-prod.climatecentral.org';
 const MARKETS_API =
   'https://9pglbdveii.execute-api.us-east-1.amazonaws.com/stage/web-image?url=https%3A%2F%2Fapi.climatecentral.org%2Fv1%2Fcmmarket%2F&getRaw=true&contentType=application/json';
 
@@ -51,7 +54,7 @@ export async function generateMetadata({
     marketSlug: string,
     titleEnum: TitleEnum,
     backgroundCombo: BackgroundCombo,
-    lang: string
+    lang: string,
   ) {
 
     let graphicURLOpts: GraphicURLOpts = Object.assign({
@@ -91,10 +94,12 @@ export async function generateMetadata({
     ).toString();
     const graphicURL = `${GRAPHICS_URL_BASE}/?${queryString}`;
 
-    // const variable = variablesForGraphicSetNames[graphicSetName];
+    const cacheCheckbox = select('#use-cache');
+    const cache = cacheCheckbox.property('checked') ? 'persist' : 'none';
+
     return {
       graphicSet: setDef.name,
-      url: `${IMG_URL_BASE}/?delay=3000&url=${encodeURIComponent(graphicURL)}`,
+      url: `${IMG_URL_BASE}/?delay=3000&cache=${cache}&url=${encodeURIComponent(graphicURL)}`,
       graphicURL,
       title: titleEnum,
       lang,
@@ -109,7 +114,7 @@ export async function generateMetadata({
       season: overallOpts.season,
       variable: setDef.variable,
       setType: setDef.name,
-      dataURL: `https://rtc-prod.climatecentral.org/api/v1/graphic-data/trend/?agg_time=${overallOpts.season}&station_id=${marketData[marketSlug].station}&trend_year_range=1970-${overallOpts.endYear}&variable=${setDef.variable}&format=csv`,
+      dataURL: `${DATA_URL_BASE}/api/v1/graphic-data/trend/?agg_time=${overallOpts.season}&station_id=${marketData[marketSlug].station}&trend_year_range=1970-${overallOpts.endYear}&variable=${setDef.variable}&format=csv`,
     };
   }
 }
