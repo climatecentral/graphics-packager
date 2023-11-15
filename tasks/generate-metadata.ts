@@ -114,7 +114,7 @@ export async function generateMetadata({
       season: overallOpts.season,
       variable: setDef.variable,
       setType: setDef.name,
-      dataURL: `${DATA_URL_BASE}/api/v1/graphic-data/trend/?agg_time=${overallOpts.season}&station_id=${marketData[marketSlug].station}&trend_year_range=1970-${overallOpts.endYear}&variable=${setDef.variable}&format=csv`,
+      dataURL: setDef.downloadable ? `${DATA_URL_BASE}/api/v1/graphic-data/trend/?agg_time=${overallOpts.season}&station_id=${marketData[marketSlug].station}&trend_year_range=1970-${overallOpts.endYear}&variable=${setDef.variable}&format=csv` : null,
     };
   }
 }
