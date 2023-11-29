@@ -1,6 +1,5 @@
 import { generateMetadata } from '../tasks/generate-metadata';
 import handleError from 'handle-error-web';
-import { renderMetadata } from '../renderers/render-metadata';
 import { ObjectFromDOM } from 'object-form';
 import { SetDef } from '../types';
 
@@ -28,7 +27,6 @@ export async function runMetadataGeneration({
 
     var metadata = await generateMetadata({ overallOpts, setDefs });
     onMetadata(metadata);
-    renderMetadata({ metadata });
   } catch (error) {
     handleError(error);
   }
