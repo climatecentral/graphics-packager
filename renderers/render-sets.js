@@ -5,7 +5,9 @@ import { renderForm } from './render-form';
 var fieldPacks = [
   { id: 'name', name: 'Graphic set name', defaultValue: 'Default set name' },
   { id: 'graphicType', name: 'graphicType', defaultValue: 'lineChart' },
+  { id: 'occasionSlug', name: 'occasionSlug', defaultValue: '' },
   { id: 'variable', name: 'variable', defaultValue: 'mean_tavg' },
+  { id: 'season', name: 'season', defaultValue: '' },
   { id: 'locationType', name: 'locationType', defaultValue: 'market' },
   { id: 'ticksCount', name: 'Ticks count', defaultValue: '3' },
   // TODO: Bring these back after graphics supports them in the URL.
