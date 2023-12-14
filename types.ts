@@ -3,7 +3,7 @@ export enum LocationTypes {
   conus = 'conus',
 }
 
-export type BackgroundType = 'Linear Gradient' | 'Image URL' | 'Solid' | 'None';
+export type BackgroundType = undefined | 'Linear Gradient' | 'Image URL' | 'Solid' | 'None';
 export type BackgroundCombo = {
   name: string;
   backgroundType: BackgroundType;
@@ -14,6 +14,8 @@ export interface SetDef {
   name: string;
   graphicType: 'lineChart' | 'mapGraphic';
   variable: string;
+  season?: string;
+  occasionSlug?: string;
   backgroundType?: BackgroundType;
   imageURL?: string;
   backgroundStartColor?: string;
@@ -30,16 +32,12 @@ export enum TitleEnum {
 
 export interface GraphicURLOpts extends Omit<SetDef, 'locations'> {
   // [key: string]: string | boolean | undefined
-  occasionSlug: string;
   lang: string;
   noTitle: boolean;
   marketSlug?: string;
-  season?: string;
 }
 
 export interface OverallOpts {
-  occasionSlug: string;
-  season: string;
   endYear: number;
 }
 

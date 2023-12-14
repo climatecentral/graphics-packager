@@ -36,7 +36,7 @@ export async function generateMetadata({
     ['title', 'notitle'],
     // backgroundCombo
     [
-      { name: 'imageBG', backgroundType: 'Image URL' },
+      { name: 'imageBG', backgroundType: undefined },
       { name: 'noBG', backgroundType: 'Solid', backgroundStartColor: 'none' },
     ],
     // lang
@@ -60,20 +60,23 @@ export async function generateMetadata({
     let graphicURLOpts: GraphicURLOpts = Object.assign({
       graphicType: setDef.graphicType,
       variable: setDef.variable,
-      season: overallOpts.season,
+      season: setDef.season,
       endYear: overallOpts.endYear,
       ticksCount: setDef.ticksCount,
       lang,
       noTitle: titleEnum === 'notitle',
       marketSlug,
-      backgroundType: backgroundCombo.backgroundType,
-      backgroundStartColor: backgroundCombo.backgroundStartColor,
     });
+
+    if (backgroundCombo.backgroundType !== undefined && backgroundCombo.backgroundStartColor !== undefined) {
+      graphicURLOpts.backgroundType = backgroundCombo.backgroundType;
+      graphicURLOpts.backgroundStartColor = backgroundCombo.backgroundStartColor;
+    }
 
     // The graphics lib determines season from occasionSlug based on its config;
     // therefore we pass either season (default) or only occasionSlug as a URL param.
-    if (overallOpts.occasionSlug) {
-      graphicURLOpts.occasionSlug = overallOpts.occasionSlug;
+    if (setDef.occasionSlug) {
+      graphicURLOpts.occasionSlug = setDef.occasionSlug;
       delete graphicURLOpts.season;
     }
 
@@ -100,10 +103,10 @@ export async function generateMetadata({
     return {
       graphicSet: setDef.name,
       url: `${IMG_URL_BASE}/?delay=3000&cache=${cache}&url=${encodeURIComponent(graphicURL)}`,
-      graphicURL,
+      htmlURL: graphicURL,
       title: titleEnum,
       lang,
-      extension: backgroundCombo.backgroundType === 'Image URL' ? 'jpg' : 'png',
+      extension: backgroundCombo.backgroundType === 'None' ? 'png' : 'jpg',
       location: {
         key: marketSlug,
         name: marketData[marketSlug].name,
@@ -111,10 +114,10 @@ export async function generateMetadata({
         longitude: null,
       },
       downloadable: setDef.downloadable,
-      season: overallOpts.season,
+      season: setDef.season,
       variable: setDef.variable,
       setType: setDef.name,
-      dataURL: setDef.downloadable ? `${DATA_URL_BASE}/api/v1/graphic-data/trend/?agg_time=${overallOpts.season}&station_id=${marketData[marketSlug].station}&trend_year_range=1970-${overallOpts.endYear}&variable=${setDef.variable}&format=csv` : null,
+      dataURL: setDef.downloadable ? `${DATA_URL_BASE}/api/v1/graphic-data/trend/?agg_time=${setDef.season}&station_id=${marketData[marketSlug].station}&trend_year_range=1970-${overallOpts.endYear}&variable=${setDef.variable}&format=csv` : null,
     };
   }
 }
